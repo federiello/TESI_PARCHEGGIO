@@ -1,0 +1,185 @@
+ boolean[][] isParking = new boolean[n+1][m+1];
+        for (int i = 0; i < isParking.length; i++){
+            for (int j = 0; j < isParking[i].length; j++){
+                isParking[i][j] = false;
+            }
+        }
+
+//per ogni cella controllo se il valore è maggiore di 0 perche ogni volta aggiorna
+//il valore della cella che assume un valore in base alle strade intorno, non sarà sempre 1
+        for (int i = 0; i < Yard.length; i++){
+            for (int j = 0; j < Yard[i].length; j++) {
+                if (Yard[i][j] == 1) {
+                    int cont = 0;
+                    if (i == 0) {
+                        if (j == 0) {
+                            if (Yard[i + 1][j] > 0)
+                                cont++;
+                            if (Yard[i][j + 1] > 0) {
+                                cont++;
+                            }
+                            Yard[i][j] = cont;
+                        } else if (j == Yard[i].length - 1) {
+                            if (Yard[i + 1][j] > 0)
+                                cont++;
+                            if (Yard[i][j - 1] > 0) {
+                                cont++;
+                            }
+                            Yard[i][j] = cont;
+                        } else {
+                            if (Yard[i + 1][j] > 0)
+                                cont++;
+                            if (Yard[i][j - 1] > 0) {
+                                cont++;
+                            }
+                            if(Yard[i][j + 1] > 0) {
+                                cont++;
+                            }
+                            Yard[i][j] = cont;
+                        }
+                    } else if (i == Yard.length - 1) {
+                        if (j == 0) {
+                            if (Yard[i - 1][j] > 0)
+                                cont++;
+                            if (Yard[i][j + 1] > 0) {
+                                cont++;
+                            }
+                            Yard[i][j] = cont;
+                        } else if (j == Yard[i].length - 1) {
+                            if (Yard[i - 1][j] > 0)
+                                cont++;
+                            if (Yard[i][j - 1] > 0) {
+                                cont++;
+                            }
+                            Yard[i][j] = cont;
+                        } else {
+                            if (Yard[i - 1][j] > 0)
+                                cont++;
+                            if (Yard[i][j + 1] > 0) {
+                                cont++;
+                            }
+                            if (Yard[i][j - 1] > 0)
+                                cont++;
+                            Yard[i][j] = cont;
+                        }
+                    } else {
+                        if (j == 0) {
+                            if (Yard[i - 1][j] > 0)
+                                cont++;
+                            if (Yard[i][j + 1] > 0) {
+                                cont++;
+                            }
+                            if (Yard[i+1][j ] > 0)
+                                cont++;
+                            Yard[i][j] = cont;
+                        } else if (j == Yard[i].length - 1) {
+                            if (Yard[i - 1][j] > 0)
+                                cont++;
+                            if (Yard[i][j - 1] > 0) {
+                                cont++;
+                            }
+                            if (Yard[i+1][j] > 0)
+                                cont++;
+                            Yard[i][j] = cont;
+                        } else {
+                            if (Yard[i - 1][j] > 0)
+                                cont++;
+                            if (Yard[i][j + 1] > 0) {
+                                cont++;
+                            }
+                            if (Yard[i][j - 1] > 0)
+                                cont++;
+                            if (Yard[i+1][j] > 0) {
+                                cont++;
+                            }
+                            Yard[i][j] = cont;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        for (int i = 0; i < Yard.length; i++){
+            for (int j = 0; j < Yard[i].length; j++){
+                if (Yard[i][j] > 0) {
+                    if (i == 0) {
+                        isParking[i][j] = false;
+                    } else if (i == Yard.length - 1) {
+                        if (j == 0) {
+                            if ((Yard[i - 1][j]-1) > 0 && (Yard[i][j + 1]-1) > 0) {
+                                Yard[i - 1][j]--;
+                                Yard[i][j + 1]--;
+                                isParking[i][j] = true;
+                            }
+                        } else if (j == Yard[i].length - 1) {
+                            if ((Yard[i - 1][j]-1) > 0 && (Yard[i][j - 1]-1) > 0) {
+                                Yard[i - 1][j]--;
+                                Yard[i][j - 1]--;
+                                isParking[i][j] = true;
+                            }
+                        } else {
+                            if ((Yard[i - 1][j]-1) > 0 && (Yard[i][j + 1]-1) > 0 && (Yard[i][j - 1]-1) > 0) {
+                                Yard[i - 1][j]--;
+                                Yard[i][j + 1]--;
+                                Yard[i][j - 1]--;
+                                isParking[i][j] = true;
+                            }
+                        }
+                    } else {
+                        if (j == 0) {
+                            if ((Yard[i - 1][j]-1) > 0 && (Yard[i][j + 1]-1) > 0 && (Yard[i+1][j]-1) > 0) {
+                                Yard[i - 1][j]--;
+                                Yard[i][j + 1]--;
+                                Yard[i+1][j]--;
+                                isParking[i][j] = true;
+                            }
+                        } else if (j == Yard[i].length - 1) {
+                            if ((Yard[i - 1][j]-1) > 0 && (Yard[i+1][j]-1) > 0 && (Yard[i][j - 1]-1) > 0) {
+                                Yard[i - 1][j]--;
+                                Yard[i+1][j]--;
+                                Yard[i][j - 1]--;
+                                isParking[i][j] = true;
+                            }
+                        } else {
+                            if ((Yard[i - 1][j]-1) > 0 && (Yard[i][j + 1]-1) > 0 && (Yard[i][j - 1]-1) > 0 && (Yard[i+1][j]-1) > 0) {
+                                Yard[i - 1][j]--;
+                                Yard[i][j + 1]--;
+                                Yard[i][j - 1]--;
+                                Yard[i+1][j]--;
+                                isParking[i][j] = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+//METODO PER CONTARE NUMERO PARCHEGGI
+        int cont =0;
+        for (int i = 0; i < Yard.length; i++){
+            for (int j = 0; j < Yard[i].length; j++){
+                if(isParking[i][j] == true){
+                    cont++;
+                }
+            }
+        }
+
+        System.out.println(cont);
+
+//METODO CHE NELLA MATRICE INIZIALE IMPOSTA I PARCHEGGI = 8
+        for (int i = 0; i < Yard.length; i++){
+            for (int j = 0; j < Yard[i].length; j++){
+                if(isParking[i][j] == true){
+                    Yard[i][j] = 8;
+                }
+            }
+        }
+
+//VISUALIZZAZIONE DISPOSIZIONE PARCHEGGI (RAPPRESENTATI COME 8)
+        for (int i = 0; i <= n; i++){
+            for (int j = 0; j <= m; j++){
+                System.out.print(Yard[i][j]);
+            }
+            System.out.println(" ");
+        }
